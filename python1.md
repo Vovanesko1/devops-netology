@@ -19,6 +19,23 @@ c = a + b
 
 2. - Мы устроились на работу в компанию, где раньше уже был DevOps Engineer. Он написал скрипт, позволяющий узнать, какие файлы модифицированы в репозитории, относительно локальных изменений. Этим скриптом недовольно начальство, потому что в его выводе есть не все изменённые файлы, а также непонятен полный путь к директории, где они находятся. Как можно доработать скрипт ниже, чтобы он исполнял требования вашего руководителя?
 
+Исходный скрипт:
+```
+#!/usr/bin/env python3
+
+import os
+
+bash_command = ["cd ~/netology/sysadm-homeworks", "git status"]
+result_os = os.popen(' && '.join(bash_command)).read()
+is_change = False
+for result in result_os.split('\n'):
+    if result.find('modified') != -1:
+        prepare_result = result.replace('\tmodified:   ', '')
+        print(prepare_result)
+        break
+```
+
+Мой скрипт:
 ```
 #!/usr/bin/env python3
 
@@ -29,7 +46,7 @@ result_os = os.popen(' && '.join(bash_command)).read()
 
 for result in result_os.split('\n'):
     if result.find('modified') != -1:
-        prepare_result = result.replace('\tmodified:   ' , '~/devops-netology/')
+        prepare_result = result.replace('\tmodified:   ' , '~/netology/sysadm-homeworks/')
         print(prepare_result)
 ```
 
@@ -62,6 +79,7 @@ import time #подключаем библиотеку для работы со 
 
 arr_address = ["drive.google.com", "mail.google.com", "google.com"] 
 
+#Ниже блок вывода имён и адресов сайтов из массива "arr_address"
 old_ip_address = ["","",""]
 
 for i in range(3):
@@ -71,6 +89,8 @@ for i in range(3):
 	#функция от библиотеки "os" , которая выполняет составную команду в bash. ".read()" возвращает результат выполнения bash в переменную old_ip_address
 	print(arr_address[i], "-", old_ip_address[i]) 
 	#вывод адреса и ip адреса, если без перевода строки, то используем (end='')
+
+#Ниже блок сравнения и вывода адресов сайтов из массива "arr_address" с новыми данными адресов, полученными через ping, когда нет совпадения. Работает в бесконечном цикле
 
 while (True):
 	time.sleep (6) #пауза 6 секунд
@@ -83,7 +103,7 @@ while (True):
 			print("[ERROR]",arr_address[i], "IP mismatch:", old_ip_address[i], tmp) #если совпадения при сравнении нет - выводим сообщение
 			old_ip_address[i] = tmp #в старый ip адрес записывается новое значение
 	if flag: #вместо flag подставляется значение: True, False. Если True - выполняется действие
-		print() # вывод превода строки
+		print() #Вывод превода строки. Отделяет блоки проверки друг от друга
 ```
 
 		
