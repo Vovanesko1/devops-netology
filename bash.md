@@ -75,14 +75,14 @@ done
 array_hosts=(173.194.222.113 87.250.250.242 192.168.0.1)
 while (true)
 do
-    for i in ${array_hosts[@]}
-    do
-			nc -z -v -w1 $i 80 &>>log
-			if (($? != 0))
-			then
-					echo $i >> error
-					break 2
-			fi
+	for i in ${array_hosts[@]}
+    	do
+		nc -z -v -w1 $i 80 &>>log
+		if (($? != 0))
+		then
+			echo $i >> error
+			break 2
+		fi
 	done
 	sleep 10
 done
